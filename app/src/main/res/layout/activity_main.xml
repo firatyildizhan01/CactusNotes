@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/buttonSıgnUp"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/passwordTextInputLayout"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#33691E"
+        android:text="SIGN UP"
+        android:textColor="#FFFFFF" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:hint="E-mail"
+        app:errorEnabled="true">
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailTextInputLayout"
+        android:layout_marginTop="16dp"
+        android:alpha="0.60"
+        android:hint="Username"
+        app:hintTextColor="#000000">
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="52dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameTextInputLayout"
+        android:layout_marginTop="16dp"
+        android:alpha="0.60"
+        android:hint="Password"
+        app:endIconMode="password_toggle"
+        app:hintTextColor="#000000">
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:inputType="textPassword"
+            android:maxLength="50" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/buttonSıgnUp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="ALREADY HAVE AN ACCOUNT?"
+        android:textColor="#33691E"
+        />
+</RelativeLayout>
