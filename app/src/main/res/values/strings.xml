@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">CactusNotes</string>
+    <string name="app_name">Sign up</string>
+    <string name="E_mail">E-mail</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="ALREADY_HAVE_AN_ACCOUNT">ALREADY HAVE AN ACCOUNT?</string>
 </resources>
