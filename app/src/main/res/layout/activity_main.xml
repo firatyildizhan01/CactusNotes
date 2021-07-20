@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/buttonSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_below="@+id/passwordTextInputLayout"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#33691E"
-        android:text="@string/app_name"
-        android:textColor="#FFFFFF" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTextInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:hint="@string/E_mail"
-        app:errorEnabled="true">
+        android:layout_height="wrap_content"
+        android:hint="@string/e_mail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailTextInputEditText"
@@ -33,13 +24,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/emailTextInputLayout"
         android:layout_marginTop="16dp"
-        android:hint="@string/Username"
-        android:textColorHint="#99000000"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="@string/username">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameTextInputEditText"
@@ -50,14 +40,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameTextInputLayout"
         android:layout_marginTop="16dp"
-        android:hint="@string/Password"
-        android:textColorHint="#99000000"
-        app:endIconMode="password_toggle"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="@string/password"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordTextInputEditText"
@@ -66,12 +55,21 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/passwordTextInputLayout"
+        android:layout_marginTop="16dp"
+        android:text="@string/app_name" />
+
+    <Button
+        android:id="@+id/buttonAccount"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonSignUp"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="32dp"
-        android:text="@string/ALREADY_HAVE_AN_ACCOUNT"
-        android:textColor="#33691E" />
-</RelativeLayout>
+        android:text="@string/already_have_an_account" />
+</LinearLayout>
