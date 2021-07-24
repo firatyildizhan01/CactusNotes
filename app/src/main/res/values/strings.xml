@@ -18,5 +18,6 @@
     <string name="email_or_username">Email or Username</string>
     <string name="log_in">LOG IN</string>
     <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="log_in_name">Logn in</string>
 
 </resources>
