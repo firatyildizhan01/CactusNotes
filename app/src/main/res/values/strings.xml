@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sign up</string>
+    <string name="app_name">Cactus Notes</string>
     <string name="e_mail">E-mail</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -9,9 +9,10 @@
     <string name="username_is_required">Username is required.</string>
     <string name="username_is_too_short.">Username is too short.</string>
     <string name="username_is_too_long.">Username is too long.</string>
-    <string name="only_include">Username can only include a–z, 0-9 and _ characters.</string>
+    <string name="only_include">Username can only include a–z, 0–9 and _ characters.</string>
     <string name="is_required">Password is required.</string>
     <string name="is_short">Password is too short.</string>
     <string name="is_long">Password is too long.</string>
-    <string name="must_contain">Password must contain one digit, one uppercase letter + , one lowercase letter and one special character.</string>
+    <string name="must_contain">Password must contain one digit, one uppercase letter, one lowercase letter and one special character.</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
