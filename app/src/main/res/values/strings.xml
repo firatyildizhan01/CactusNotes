@@ -15,4 +15,8 @@
     <string name="is_long">Password is too long.</string>
     <string name="must_contain">Password must contain one digit, one uppercase letter, one lowercase letter and one special character.</string>
     <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log in</string>
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="email_or_username_is_required">Email or username is required</string>
+    <string name="email_or_username">Email or Username</string>
 </resources>
