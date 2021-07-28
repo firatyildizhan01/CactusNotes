@@ -1,5 +1,7 @@
 package com.example.cactusnotes
 
+import android.content.Intent
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cactusnotes.databinding.ActivityMainBinding
@@ -50,6 +52,11 @@ class MainActivity : AppCompatActivity() {
                 binding.passwordTextInputEditText.error = getString(R.string.must_contain)
 
             }
+        }
+
+        binding.buttonAccount.setOnClickListener {
+            val intent = Intent(this, LogInActivity::class.java)
+            startActivity(intent)
         }
     }
 }
