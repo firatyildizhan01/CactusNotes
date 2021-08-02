@@ -9,14 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CactusNotes">
-        <activity
-            android:name=".LogInActivity"
-            android:exported="true"
-            android:label="@string/log_in_name" />
+
+        <!--        <activity-->
+        <!--&lt;!&ndash;            android:name=".Login.LogInActivity"&ndash;&gt;-->
+        <!--            android:exported="true"-->
+        <!--            android:label="@string/log_in" />-->
 
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".Login.LogInActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:label="@string/log_in">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,5 +27,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
