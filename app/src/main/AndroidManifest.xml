@@ -16,7 +16,7 @@
             android:label="@string/log_in" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Signup.SignUpActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/sign_up">
