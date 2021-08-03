@@ -9,17 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CactusNotes">
-
         <activity
-            android:name=".LogInActivity"
-            android:exported="true"
-            android:label="@string/log_in" />
-
-        <activity
-            android:name=".signup.SignUpActivity"
+            android:name=".login.LogInActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:label="@string/sign_up">
+            android:label="@string/log_in">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
