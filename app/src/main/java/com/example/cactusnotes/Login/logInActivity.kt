@@ -1,13 +1,13 @@
-package com.example.cactusnotes.Login
+package com.example.cactusnotes.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cactusnotes.Validations.loginEmailOrUsernameValidator
-import com.example.cactusnotes.Validations.loginPasswordValidator
 import com.example.cactusnotes.databinding.ActivityLogInBinding
+import com.example.cactusnotes.validations.LoginEmailOrUsernameValidator
+import com.example.cactusnotes.validations.LoginPasswordValidator
 import com.google.android.material.textfield.TextInputLayout
 
-class logInActivity : AppCompatActivity() {
+class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLogInBinding
 
@@ -40,12 +40,8 @@ class logInActivity : AppCompatActivity() {
     }
 
     private fun TextInputLayout.validator() = when (this) {
-        binding.emailorUsernameTextInputLayout -> loginEmailOrUsernameValidator()
-        binding.passwordLogInTextInputLayout -> loginPasswordValidator()
+        binding.emailorUsernameTextInputLayout -> LoginEmailOrUsernameValidator()
+        binding.passwordLogInTextInputLayout -> LoginPasswordValidator()
         else -> throw IllegalArgumentException("No validators are specified for the given TextInputLayout")
     }
 }
-
-
-
-
