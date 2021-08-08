@@ -1,7 +1,6 @@
-package com.example.cactusnotes.Validations
+package com.example.cactusnotes.validations
 
 import com.example.cactusnotes.R
-import com.example.cactusnotes.validations.Validator
 
 class LoginEmailOrUsernameValidator : Validator {
     override fun validate(field: String) = when {

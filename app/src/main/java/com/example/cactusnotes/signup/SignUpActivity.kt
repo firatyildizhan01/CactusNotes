@@ -1,18 +1,27 @@
-package com.example.cactusnotes.Signup
+package com.example.cactusnotes.signup
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cactusnotes.login.LogInActivity
-import com.example.cactusnotes.Validations.EmailValidator
-import com.example.cactusnotes.Validations.PasswordValidator
-import com.example.cactusnotes.Validations.UsernameValidator
+import com.example.cactusnotes.Login.LogInActivity
 import com.example.cactusnotes.databinding.ActivitySignUpBinding
+import com.example.cactusnotes.validations.*
+
 import com.google.android.material.textfield.TextInputLayout
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
+
+    val api: SignupAPI by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://apps.cactus.school")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(SignupAPI::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +38,7 @@ class SignUpActivity : AppCompatActivity() {
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent)
         }
+        api.register(RegisterRequest())
     }
 
     private fun validate(textInputLayout: TextInputLayout) {

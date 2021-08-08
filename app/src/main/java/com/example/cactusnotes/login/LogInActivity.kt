@@ -1,11 +1,11 @@
-package com.example.cactusnotes.login
+package com.example.cactusnotes.Login
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cactusnotes.Signup.SignUpActivity
-import com.example.cactusnotes.Validations.LoginEmailOrUsernameValidator
-import com.example.cactusnotes.Validations.LoginPasswordValidator
+import com.example.cactusnotes.signup.SignUpActivity
+import com.example.cactusnotes.validations.LoginEmailOrUsernameValidator
+import com.example.cactusnotes.validations.LoginPasswordValidator
 import com.example.cactusnotes.databinding.ActivityLogInBinding
 import com.google.android.material.textfield.TextInputLayout
 
