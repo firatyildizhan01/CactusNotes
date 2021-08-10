@@ -1,12 +1,12 @@
-package com.example.cactusnotes.Login
+package com.example.cactusnotes.log_in
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cactusnotes.databinding.ActivityLogInBinding
 import com.example.cactusnotes.signup.SignUpActivity
 import com.example.cactusnotes.validations.LoginEmailOrUsernameValidator
 import com.example.cactusnotes.validations.LoginPasswordValidator
-import com.example.cactusnotes.databinding.ActivityLogInBinding
 import com.google.android.material.textfield.TextInputLayout
 
 class LogInActivity : AppCompatActivity() {
@@ -19,8 +19,8 @@ class LogInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonLogIn.setOnClickListener {
-            validate(binding.emailorUsernameTextInputLayout)
-            validate(binding.passwordLogInTextInputLayout)
+            isEmailOrUsername()
+            isPassword()
 
         }
         binding.buttonCreate.setOnClickListener {
@@ -46,6 +46,9 @@ class LogInActivity : AppCompatActivity() {
         binding.passwordLogInTextInputLayout -> LoginPasswordValidator()
         else -> throw IllegalArgumentException("No validators are specified for the given TextInputLayout")
     }
+
+    fun isEmailOrUsername() = validate(binding.emailorUsernameTextInputLayout)
+    fun isPassword() = validate(binding.passwordLogInTextInputLayout)
 }
 
 

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.CactusNotes">
 
         <activity
-            android:name=".Login.LogInActivity"
+            android:name=".log_in.LogInActivity"
             android:exported="true"
             android:label="@string/log_in" />
 
