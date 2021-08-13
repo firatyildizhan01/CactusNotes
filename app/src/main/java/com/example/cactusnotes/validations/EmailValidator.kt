@@ -2,7 +2,7 @@ package com.example.cactusnotes.validations
 
 import com.example.cactusnotes.R
 
-class EmailValidator : Validator {
+class EmailValidator : CactusValidator {
     override fun validate(field: String) = when {
         field.isEmpty() -> R.string.email_is_required
         field.length < 5 -> R.string.email_is_invalid

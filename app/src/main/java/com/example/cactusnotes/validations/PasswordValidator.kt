@@ -2,7 +2,7 @@ package com.example.cactusnotes.validations
 
 import com.example.cactusnotes.R
 
-class PasswordValidator : Validator {
+class PasswordValidator : CactusValidator {
     override fun validate(field: String) = when {
 
         field.isEmpty() -> R.string.password_is_required
@@ -19,5 +19,4 @@ class PasswordValidator : Validator {
      fun String.containAtleastOneLowercase() = any { it.isLowerCase() }
      fun String.containAtleastOneUppercase() = any { it.isUpperCase() }
      fun String.onSpecial() = !any { it.isDigit() } && !any { it.isLetter() }
-
 }

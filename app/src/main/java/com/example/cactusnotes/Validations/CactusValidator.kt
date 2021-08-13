@@ -1,6 +1,5 @@
 package com.example.cactusnotes.validations
 
-interface Validator {
+interface CactusValidator {
     fun validate(field: String): Int?
-
 }

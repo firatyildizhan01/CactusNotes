@@ -20,9 +20,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//Q1 Do I have to know how everything works?
-//Q2 When I changed my codes . Error message orders are changed . why ?
-//Q3 Do we have to know every word in function ( exp : override fun onCreate)
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
@@ -31,18 +28,17 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.buttonSignUp.setOnClickListener {
 
+        binding.buttonSignUp.setOnClickListener {
             if (isEmailValid() && isUsernameValid() && isPasswordValid()) {
                 sendRegisterRequest()
             }
-
         }
+
         binding.buttonAccount.setOnClickListener {
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun validate(textInputLayout: TextInputLayout): Boolean {
@@ -57,7 +53,6 @@ class SignUpActivity : AppCompatActivity() {
             textInputLayout.error = getString(error)
             false
         }
-
     }
 
     private fun TextInputLayout.validator() = when (this) {
@@ -68,14 +63,12 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun sendRegisterRequest() {
-
         val request = RegisterRequest(
             binding.emailTextInputLayout.editText!!.text.toString(),
             binding.usernameTextInputLayout.editText!!.text.toString(),
             binding.passwordTextInputLayout.editText!!.text.toString()
         )
-        // I don't understand anything at this part
-        // Q1 What doest the enqueue ?
+
         api.register(request).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
@@ -89,41 +82,6 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
 
-            private fun registerSuccess() {
-                Snackbar.make(
-                    binding.buttonSignUp,
-                    R.string.registered,
-                    Snackbar.LENGTH_LONG
-                ).show()
-
-            }
-
-            private fun serverSideError() {
-                Snackbar.make(
-                    binding.buttonSignUp,
-                    R.string.some_error_occurred,
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-
-            // I don't understand anything at this part
-            private fun clientSideError(response: Response<RegisterResponse>) {
-                val responseObj = JSONObject(response.errorBody()!!.string())
-
-                val clientSideErrorMessage = responseObj.getJSONArray("message")
-                    .getJSONObject(0)
-                    .getJSONArray("messages")
-                    .getJSONObject(0)
-                    .getString("message")
-
-                Snackbar.make(
-                    binding.buttonSignUp,
-                    clientSideErrorMessage,
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-
-            // not OKAY ( why does ıde create onFailure function?)
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 Snackbar.make(
                     binding.buttonSignUp,
@@ -134,8 +92,41 @@ class SignUpActivity : AppCompatActivity() {
         })
     }
 
+    private fun registerSuccess() {
+        Snackbar.make(
+            binding.buttonSignUp,
+            R.string.registered,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun serverSideError() {
+        Snackbar.make(
+            binding.buttonSignUp,
+            R.string.some_error_occurred,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun clientSideError(response: Response<RegisterResponse>) {
+        val responseObj = JSONObject(response.errorBody()!!.string())
+        val clientSideErrorMessage = responseObj.getJSONArray("message")
+            .getJSONObject(0)
+            .getJSONArray("messages")
+            .getJSONObject(0)
+            .getString("message")
+
+        Snackbar.make(
+            binding.buttonSignUp,
+            clientSideErrorMessage,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
     private fun isEmailValid() = validate(binding.emailTextInputLayout)
+
     private fun isPasswordValid() = validate(binding.passwordTextInputLayout)
+
     private fun isUsernameValid() = validate(binding.usernameTextInputLayout)
 }
 

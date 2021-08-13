@@ -2,7 +2,7 @@ package com.example.cactusnotes.validations
 
 import com.example.cactusnotes.R
 
-class UsernameValidator : Validator {
+class UsernameValidator : CactusValidator {
     override fun validate(field: String) = when {
         field.isEmpty() -> R.string.username_is_required
         field.length < 5 -> R.string.username_is_too_short
