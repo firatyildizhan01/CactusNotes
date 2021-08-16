@@ -1,4 +1,4 @@
-package com.example.cactusnotes.model
+package com.example.cactusnotes.service.model
 
 data class RegisterRequest(
     val email: String,
