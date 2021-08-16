@@ -6,13 +6,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivitySignUpBinding
-import com.example.cactusnotes.log_in.LogInActivity
-import com.example.cactusnotes.model.RegisterRequest
-import com.example.cactusnotes.model.RegisterResponse
+import com.example.cactusnotes.login.LoginActivity
 import com.example.cactusnotes.service.api
-import com.example.cactusnotes.validations.EmailValidator
-import com.example.cactusnotes.validations.PasswordValidator
-import com.example.cactusnotes.validations.UsernameValidator
+import com.example.cactusnotes.service.model.RegisterRequest
+import com.example.cactusnotes.service.model.RegisterResponse
+import com.example.cactusnotes.signup.validation.EmailValidator
+import com.example.cactusnotes.signup.validation.PasswordValidator
+import com.example.cactusnotes.signup.validation.UsernameValidator
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
@@ -36,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.buttonAccount.setOnClickListener {
-            val intent = Intent(this, LogInActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }
