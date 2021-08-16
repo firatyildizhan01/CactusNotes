@@ -8,8 +8,8 @@ import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivitySignUpBinding
 import com.example.cactusnotes.login.LoginActivity
 import com.example.cactusnotes.service.api
-import com.example.cactusnotes.service.model.RegisterRequest
-import com.example.cactusnotes.service.model.RegisterResponse
+import com.example.cactusnotes.service.model.register.RegisterRequest
+import com.example.cactusnotes.service.model.register.RegisterResponse
 import com.example.cactusnotes.signup.validation.EmailValidator
 import com.example.cactusnotes.signup.validation.PasswordValidator
 import com.example.cactusnotes.signup.validation.UsernameValidator
@@ -30,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonSignUp.setOnClickListener {
-            if (isEmailValid() && isUsernameValid() && isPasswordValid()) {
+            if (isEmailValid() and isUsernameValid() and isPasswordValid()) {
                 sendRegisterRequest()
             }
         }
