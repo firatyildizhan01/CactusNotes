@@ -17,6 +17,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import userstore.UserStore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -48,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         api.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 when (response.code()) {
-                    200 -> registerSuccess(response.body()!!.jwt)
+                    200 -> registerSuccess(response.body()!!)
                     400 -> clientSideError(response)
                     else -> unexpectedError()
                 }
@@ -64,12 +65,15 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun registerSuccess(jwt: String) {
+    private fun registerSuccess(response: LoginResponse) {
         Snackbar.make(
             binding.root,
-            jwt,
+            R.string.succesfull,
             Snackbar.LENGTH_LONG
         ).show()
+        val userStore = UserStore(this)
+        userStore.saveJwt(response.jwt)
+
     }
 
     private fun unexpectedError() {

@@ -9,7 +9,8 @@ class AuthInterceptor(private val userStore: UserStore) : Interceptor {
 // need explanation by Mr . Safa
         val requestBuilder = chain.request().newBuilder()
 
-        if (chain.request().url().pathSegments()[0] != "auth") {
+        if (chain.request().url.pathSegments[0] != "auth") {
+
             userStore.getJwt()?.let {
                 requestBuilder.addHeader("Authorization", "Bearer $it")
             }
