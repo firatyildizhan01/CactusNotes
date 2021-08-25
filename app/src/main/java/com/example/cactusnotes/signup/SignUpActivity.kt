@@ -13,6 +13,7 @@ import com.example.cactusnotes.service.model.register.RegisterResponse
 import com.example.cactusnotes.signup.validation.EmailValidator
 import com.example.cactusnotes.signup.validation.PasswordValidator
 import com.example.cactusnotes.signup.validation.UsernameValidator
+import com.example.cactusnotes.userstore.UserStore
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
@@ -75,7 +76,7 @@ class SignUpActivity : AppCompatActivity() {
                 response: Response<RegisterResponse>
             ) {
                 when (response.code()) {
-                    in 200..299 -> registerSuccess()
+                    in 200..299 -> registerSuccess(response.body()!!.jwt)
                     in 400..499 -> clientSideError(response)
                     in 500..599 -> serverSideError()
                     else -> Log.e("SignupActivity", "Unexpected error code")
@@ -92,12 +93,11 @@ class SignUpActivity : AppCompatActivity() {
         })
     }
 
-    private fun registerSuccess() {
-        Snackbar.make(
-            binding.buttonSignUp,
-            R.string.registered,
-            Snackbar.LENGTH_LONG
-        ).show()
+    private fun registerSuccess(jwt: String) {
+        val userStore = UserStore(this)
+        userStore.saveJwt(jwt)
+
+        // TODO: navigate to NoteList screen
     }
 
     private fun serverSideError() {

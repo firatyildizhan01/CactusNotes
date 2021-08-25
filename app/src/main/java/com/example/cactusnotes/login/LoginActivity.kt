@@ -11,13 +11,13 @@ import com.example.cactusnotes.service.api
 import com.example.cactusnotes.service.model.login.LoginRequest
 import com.example.cactusnotes.service.model.login.LoginResponse
 import com.example.cactusnotes.signup.SignUpActivity
+import com.example.cactusnotes.userstore.UserStore
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import userstore.UserStore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         api.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 when (response.code()) {
-                    200 -> registerSuccess(response.body()!!)
+                    200 -> loginSuccess(response.body()!!.jwt)
                     400 -> clientSideError(response)
                     else -> unexpectedError()
                 }
@@ -65,15 +65,11 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun registerSuccess(response: LoginResponse) {
-        Snackbar.make(
-            binding.root,
-            R.string.succesfull,
-            Snackbar.LENGTH_LONG
-        ).show()
+    private fun loginSuccess(jwt: String) {
         val userStore = UserStore(this)
-        userStore.saveJwt(response.jwt)
+        userStore.saveJwt(jwt)
 
+        // TODO: navigate to NoteList screen
     }
 
     private fun unexpectedError() {

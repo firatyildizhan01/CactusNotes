@@ -1,10 +1,9 @@
-package userstore
+package com.example.cactusnotes.userstore
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import androidx.core.content.edit
 
-// why do we add (val context: Context)
 class UserStore(private val context: Context) {
     fun saveJwt(jwt: String) {
         sharedPrefs().edit(commit = true) {
