@@ -7,7 +7,7 @@ import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivityLogInBinding
 import com.example.cactusnotes.login.validation.EmailOrUsernameValidator
 import com.example.cactusnotes.login.validation.PasswordValidator
-import com.example.cactusnotes.service.api
+import com.example.cactusnotes.service.authenticationApi
 import com.example.cactusnotes.service.model.login.LoginRequest
 import com.example.cactusnotes.service.model.login.LoginResponse
 import com.example.cactusnotes.signup.SignUpActivity
@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
     private fun sendLoginRequest(identifier: String, password: String) {
         val request = LoginRequest(identifier, password)
 
-        api.login(request).enqueue(object : Callback<LoginResponse> {
+        authenticationApi.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 when (response.code()) {
                     200 -> loginSuccess(response.body()!!.jwt)

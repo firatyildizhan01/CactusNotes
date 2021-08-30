@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivitySignUpBinding
 import com.example.cactusnotes.login.LoginActivity
-import com.example.cactusnotes.service.api
+import com.example.cactusnotes.service.authenticationApi
 import com.example.cactusnotes.service.model.register.RegisterRequest
 import com.example.cactusnotes.service.model.register.RegisterResponse
 import com.example.cactusnotes.signup.validation.EmailValidator
@@ -70,7 +70,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.passwordTextInputLayout.editText!!.text.toString()
         )
 
-        api.register(request).enqueue(object : Callback<RegisterResponse> {
+        authenticationApi.register(request).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
