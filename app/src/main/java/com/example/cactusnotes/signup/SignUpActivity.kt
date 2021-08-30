@@ -7,12 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivitySignUpBinding
 import com.example.cactusnotes.login.LoginActivity
-import com.example.cactusnotes.service.api
-import com.example.cactusnotes.service.model.RegisterRequest
-import com.example.cactusnotes.service.model.RegisterResponse
+import com.example.cactusnotes.service.authenticationApi
+import com.example.cactusnotes.service.model.register.RegisterRequest
+import com.example.cactusnotes.service.model.register.RegisterResponse
 import com.example.cactusnotes.signup.validation.EmailValidator
 import com.example.cactusnotes.signup.validation.PasswordValidator
 import com.example.cactusnotes.signup.validation.UsernameValidator
+import com.example.cactusnotes.userstore.UserStore
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
@@ -30,7 +31,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonSignUp.setOnClickListener {
-            if (isEmailValid() && isUsernameValid() && isPasswordValid()) {
+            if (isEmailValid() and isUsernameValid() and isPasswordValid()) {
                 sendRegisterRequest()
             }
         }
@@ -69,13 +70,13 @@ class SignUpActivity : AppCompatActivity() {
             binding.passwordTextInputLayout.editText!!.text.toString()
         )
 
-        api.register(request).enqueue(object : Callback<RegisterResponse> {
+        authenticationApi.register(request).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
                 when (response.code()) {
-                    in 200..299 -> registerSuccess()
+                    in 200..299 -> registerSuccess(response.body()!!.jwt)
                     in 400..499 -> clientSideError(response)
                     in 500..599 -> serverSideError()
                     else -> Log.e("SignupActivity", "Unexpected error code")
@@ -92,12 +93,11 @@ class SignUpActivity : AppCompatActivity() {
         })
     }
 
-    private fun registerSuccess() {
-        Snackbar.make(
-            binding.buttonSignUp,
-            R.string.registered,
-            Snackbar.LENGTH_LONG
-        ).show()
+    private fun registerSuccess(jwt: String) {
+        val userStore = UserStore(this)
+        userStore.saveJwt(jwt)
+
+        // TODO: navigate to NoteList screen
     }
 
     private fun serverSideError() {

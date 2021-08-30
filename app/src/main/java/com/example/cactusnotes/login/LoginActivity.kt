@@ -3,11 +3,21 @@ package com.example.cactusnotes.login
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivityLogInBinding
 import com.example.cactusnotes.login.validation.EmailOrUsernameValidator
 import com.example.cactusnotes.login.validation.PasswordValidator
+import com.example.cactusnotes.service.authenticationApi
+import com.example.cactusnotes.service.model.login.LoginRequest
+import com.example.cactusnotes.service.model.login.LoginResponse
 import com.example.cactusnotes.signup.SignUpActivity
+import com.example.cactusnotes.userstore.UserStore
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,8 +29,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonLogIn.setOnClickListener {
-            validateEmailOrUsername()
-            validatePassword()
+            if (isIdentifierValid() and isPasswordValid()) {
+                val identifier = binding.emailorUsernameTextInputEditText.text.toString()
+                val password = binding.passwordLogInTextInputEditText.text.toString()
+
+                sendLoginRequest(identifier, password)
+            }
         }
 
         binding.buttonCreate.setOnClickListener {
@@ -29,15 +43,69 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun validate(textInputLayout: TextInputLayout) {
+    private fun sendLoginRequest(identifier: String, password: String) {
+        val request = LoginRequest(identifier, password)
+
+        authenticationApi.login(request).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                when (response.code()) {
+                    200 -> loginSuccess(response.body()!!.jwt)
+                    400 -> clientSideError(response)
+                    else -> unexpectedError()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Snackbar.make(
+                    binding.root,
+                    R.string.couldnt_connect_to_servers,
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
+    private fun loginSuccess(jwt: String) {
+        val userStore = UserStore(this)
+        userStore.saveJwt(jwt)
+
+        // TODO: navigate to NoteList screen
+    }
+
+    private fun unexpectedError() {
+        Snackbar.make(
+            binding.root,
+            R.string.some_error_occurred,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun clientSideError(response: Response<LoginResponse>) {
+        val responseObj = JSONObject(response.errorBody()!!.string())
+        val clientSideErrorMessage = responseObj.getJSONArray("message")
+            .getJSONObject(0)
+            .getJSONArray("messages")
+            .getJSONObject(0)
+            .getString("message")
+
+        Snackbar.make(
+            binding.root,
+            clientSideErrorMessage,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun validate(textInputLayout: TextInputLayout): Boolean {
         val validator = textInputLayout.validator()
         val field = textInputLayout.editText!!.text.toString()
         val error = validator.validate(field)
 
-        if (error == null) {
+        return if (error == null) {
             textInputLayout.error = null
+            true
         } else {
             textInputLayout.error = getString(error)
+            false
         }
     }
 
@@ -47,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
         else -> throw IllegalArgumentException("No validators are specified for the given TextInputLayout")
     }
 
-    private fun validateEmailOrUsername() = validate(binding.emailorUsernameTextInputLayout)
+    private fun isIdentifierValid() = validate(binding.emailorUsernameTextInputLayout)
 
-    private fun validatePassword() = validate(binding.passwordLogInTextInputLayout)
+    private fun isPasswordValid() = validate(binding.passwordLogInTextInputLayout)
 }
