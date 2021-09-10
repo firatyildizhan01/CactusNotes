@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_green">#003D00</color>
     <color name="green">#33691E</color>
+    <color name="Gray">#E5E5E5</color>
+    <color name="note_card_stroke_color">#1F000000</color>
 </resources>
