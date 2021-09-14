@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivityLogInBinding
+import com.example.cactusnotes.listscreen.ListScreenActivity
 import com.example.cactusnotes.login.validation.EmailOrUsernameValidator
 import com.example.cactusnotes.login.validation.PasswordValidator
 import com.example.cactusnotes.service.authenticationApi
@@ -29,11 +30,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonLogIn.setOnClickListener {
+
             if (isIdentifierValid() and isPasswordValid()) {
                 val identifier = binding.emailorUsernameTextInputEditText.text.toString()
                 val password = binding.passwordLogInTextInputEditText.text.toString()
 
                 sendLoginRequest(identifier, password)
+
+
             }
         }
 
@@ -49,7 +53,10 @@ class LoginActivity : AppCompatActivity() {
         authenticationApi.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 when (response.code()) {
-                    200 -> loginSuccess(response.body()!!.jwt)
+                    200 -> {
+                        loginSuccess(response.body()!!.jwt)
+                        navigateToNoteList()
+                    }
                     400 -> clientSideError(response)
                     else -> unexpectedError()
                 }
@@ -118,4 +125,11 @@ class LoginActivity : AppCompatActivity() {
     private fun isIdentifierValid() = validate(binding.emailorUsernameTextInputLayout)
 
     private fun isPasswordValid() = validate(binding.passwordLogInTextInputLayout)
+
+    private fun navigateToNoteList() {
+
+        startActivity(Intent(this, ListScreenActivity::class.java))
+        finish()
+
+    }
 }

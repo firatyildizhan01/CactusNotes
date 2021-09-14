@@ -5,17 +5,17 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.cactusnotes.NotesDate
+import com.example.cactusnotes.NoteHolder
+import com.example.cactusnotes.Notes
 import com.example.cactusnotes.R
-import com.example.cactusnotes.RVAdapter
 import com.example.cactusnotes.databinding.ActivityListScreenBinding
 import com.google.android.material.snackbar.Snackbar
 
 class ListScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListScreenBinding
-    private lateinit var notesList: ArrayList<NotesDate>
-    private lateinit var adapter: RVAdapter
+    private lateinit var notesList: ArrayList<Notes>
+    private lateinit var adapter: NoteHolder
 
     val LOADING = 0
     val EMPTY = 1
@@ -35,30 +35,28 @@ class ListScreenActivity : AppCompatActivity() {
         binding.recyclerview.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        val u1 = NotesDate(1, "Remember", "Doing is important!")
-        val u2 = NotesDate(2, "Shopping List", "Carrots\n" + "Bananas\n" + "Apples\n" + "Milk")
-        val u3 = NotesDate(
+        val u1 = Notes(1, "Remember", "Doing is important!")
+        val u2 = Notes(2, "Shopping List", "Carrots\n" + "Bananas\n" + "Apples\n" + "Milk")
+        val u3 = Notes(
             3,
             "Learn Kotlin",
             "Extensions functions are of a great help when creating a clean a..."
         )
 
-        notesList = ArrayList<NotesDate>()
+        notesList = ArrayList<Notes>()
 
         notesList.add(u1)
         notesList.add(u2)
         notesList.add(u3)
 
 
-        adapter = RVAdapter(this, notesList)
+        adapter = NoteHolder(notesList)
         binding.recyclerview.adapter = adapter
 
         binding.floatingActionButton5.setOnClickListener() {
             incrementState()
             updateUI(binding)
         }
-
-
     }
 
     private fun incrementState() {
