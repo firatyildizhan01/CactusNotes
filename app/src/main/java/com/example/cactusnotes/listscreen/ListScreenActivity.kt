@@ -5,7 +5,7 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.cactusnotes.NoteHolder
+import com.example.cactusnotes.NoteAdapter
 import com.example.cactusnotes.Notes
 import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivityListScreenBinding
@@ -15,14 +15,13 @@ class ListScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListScreenBinding
     private lateinit var notesList: ArrayList<Notes>
-    private lateinit var adapter: NoteHolder
+    private lateinit var adapter: NoteAdapter
 
     val LOADING = 0
     val EMPTY = 1
     val ERROR = 2
     val SUCCESS = 3
     var stateIndex = LOADING
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +43,11 @@ class ListScreenActivity : AppCompatActivity() {
         )
 
         notesList = ArrayList<Notes>()
-
         notesList.add(u1)
         notesList.add(u2)
         notesList.add(u3)
 
-
-        adapter = NoteHolder(notesList)
+        adapter = NoteAdapter(notesList)
         binding.recyclerview.adapter = adapter
 
         binding.floatingActionButton5.setOnClickListener() {

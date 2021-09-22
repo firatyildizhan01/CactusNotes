@@ -10,7 +10,6 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 private var _notesApi: NotesApi? = null
 val notesApi get() = _notesApi!!
 
@@ -45,7 +44,6 @@ fun generateAuthenticationApi() {
     val loggingInterceptor = HttpLoggingInterceptor().apply {
         setLevel(BODY)
     }
-
 
     val authenticationApiClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)

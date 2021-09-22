@@ -24,5 +24,7 @@
     <string name="couldnt_connect_to_servers">Couldn’t connect to the servers. Please check your connection.</string>
     <string name="succesfull">Succesfull</string>
     <string name="you_don_t_have_any_notes_click_below_button_to_add_one">You don’t have any notes. Click below button to add one!</string>
+    <string name="remember">Remember</string>
+    <string name="doing_is_important">Doing is important!</string>
 
 </resources>
