@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cactusnotes.R
 import com.example.cactusnotes.databinding.ActivityLogInBinding
+import com.example.cactusnotes.listscreen.ListScreenActivity
 import com.example.cactusnotes.login.validation.EmailOrUsernameValidator
 import com.example.cactusnotes.login.validation.PasswordValidator
 import com.example.cactusnotes.service.authenticationApi
@@ -32,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
             if (isIdentifierValid() and isPasswordValid()) {
                 val identifier = binding.emailorUsernameTextInputEditText.text.toString()
                 val password = binding.passwordLogInTextInputEditText.text.toString()
-
                 sendLoginRequest(identifier, password)
             }
         }
@@ -45,11 +45,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun sendLoginRequest(identifier: String, password: String) {
         val request = LoginRequest(identifier, password)
-
         authenticationApi.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 when (response.code()) {
-                    200 -> loginSuccess(response.body()!!.jwt)
+                    200 -> {
+                        loginSuccess(response.body()!!.jwt)
+                        navigateToNoteList()
+                    }
                     400 -> clientSideError(response)
                     else -> unexpectedError()
                 }
@@ -68,8 +70,6 @@ class LoginActivity : AppCompatActivity() {
     private fun loginSuccess(jwt: String) {
         val userStore = UserStore(this)
         userStore.saveJwt(jwt)
-
-        // TODO: navigate to NoteList screen
     }
 
     private fun unexpectedError() {
@@ -87,7 +87,6 @@ class LoginActivity : AppCompatActivity() {
             .getJSONArray("messages")
             .getJSONObject(0)
             .getString("message")
-
         Snackbar.make(
             binding.root,
             clientSideErrorMessage,
@@ -99,7 +98,6 @@ class LoginActivity : AppCompatActivity() {
         val validator = textInputLayout.validator()
         val field = textInputLayout.editText!!.text.toString()
         val error = validator.validate(field)
-
         return if (error == null) {
             textInputLayout.error = null
             true
@@ -116,6 +114,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isIdentifierValid() = validate(binding.emailorUsernameTextInputLayout)
-
     private fun isPasswordValid() = validate(binding.passwordLogInTextInputLayout)
+    private fun navigateToNoteList() {
+        startActivity(Intent(this, ListScreenActivity::class.java))
+        finish()
+    }
 }
